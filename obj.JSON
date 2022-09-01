@@ -1,0 +1,50 @@
+approved_at: 1661976786
+aspect_ratio: "16:9"
+beauty_url: null
+brand: null
+brand_id: null
+buzz_id: null
+canonical_id: "recipe:8406"
+compilations: []
+cook_time_minutes: null
+country: "US"
+created_at: 1659915019
+credits: [{…}]
+description: ""
+draft_status: "published"
+facebook_posts: []
+id: 8406
+inspired_by_url: null
+instructions: (8) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+is_one_top: false
+is_shoppable: true
+keywords: ""
+language: "eng"
+name: "Orange Pork Belly"
+num_servings: 4
+nutrition: {fat: 67, calories: 866, sugar: 33, carbohydrates: 49, fiber: 3, …}
+nutrition_visibility: "auto"
+original_video_url: null
+prep_time_minutes: null
+promotion: "full"
+renditions: []
+sections: [{…}]
+seo_title: ""
+servings_noun_plural: "servings"
+servings_noun_singular: "serving"
+show: {name: 'Tasty', id: 17}
+show_id: 17
+slug: "orange-pork-belly"
+tags: (3) [{…}, {…}, {…}]
+thumbnail_alt_text: ""
+thumbnail_url: "https://img.buzzfeed.com/tasty-app-user-assets-prod-us-east-1/recipes/4d150e28093f4fff94be00412d275f61.jpeg"
+tips_and_ratings_enabled: true
+topics: []
+total_time_minutes: null
+total_time_tier: null
+updated_at: 1661976787
+user_ratings: {count_positive: 0, score: null, count_negative: 0}
+video_ad_content: null
+video_id: null
+video_url: null
+yields: "Servings: 4"
