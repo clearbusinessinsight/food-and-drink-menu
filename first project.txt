@@ -1,0 +1,17 @@
+Project Title	Name in Progress
+
+Project description	
+1.	Select food 
+a.	Then select type of food
+b.	Choose from a list of meals
+2.	Select drink
+a.	Then select type of drink ingredient
+b.	Choose from a list of drinks using that ingredient
+Then your food paring shows in a window
+
+
+User Story  	Edna
+
+Wire Frame 	Dak
+
+API TheCocktailDB    TheMealDB
