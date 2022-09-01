@@ -4,11 +4,14 @@ var nextBtn = document.querySelector('.flip');
 var recContainer = document.querySelector('.detail');
 var searchBox = document.querySelector('.search-box');
 
-var forwardBtn = document.getElementById('forward-arrow');
-var backBtn = document.getElementById('back-arrow');
-
 var foodResults;
-var foodIndex = 0
+var recipeIndex = 0;
+
+var drinkResult;
+var drinkIndex =0;
+
+var isDrink = false;
+var isFood = false;
 
 var food = document.querySelector('.foodInput');
 var drink = document.querySelector('.drinkInput');
@@ -19,30 +22,33 @@ var foodBtn = document.querySelector('.foodBtn');
 var savedFood = document.getElementById("saved-food");
 var savedDrink = document.getElementById("saved-drink");
 
+var rightBtn = document.getElementById('forward-arrow');
+var leftBtn = document.getElementById('back-arrow');
 
 
 
-function saveLastRecipe() {
-    // Save related form data as an object
-    var userRecipe = {
-        drink: drink.value,
-        food: food.value,
-    };
-    // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
-    localStorage.setItem("userRecipe", JSON.stringify(userRecipe));
-}
 
-function renderLastRecipe() {
-    // Use JSON.parse() to convert text to JavaScript object
-    var lastRecipe = JSON.parse(localStorage.getItem("userRecipe"));
-    // Check if data is returned, if not exit out of the function
-    if (lastRecipe !== null) {
-        document.getElementById("saved-food").innerHTML = lastRecipe.food;
-        document.getElementById("saved-drink").innerHTML = lastRecipe.drink;
-    } else {
-        return;
-    }
-}
+// function saveLastRecipe() {
+//     // Save related form data as an object
+//     var userRecipe = {
+//         drink: drink.value,
+//         food: food.value,
+//     };
+//     // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
+//     localStorage.setItem("userRecipe", JSON.stringify(userRecipe));
+// }
+
+// function renderLastRecipe() {
+//     // Use JSON.parse() to convert text to JavaScript object
+//     var lastRecipe = JSON.parse(localStorage.getItem("userRecipe"));
+//     // Check if data is returned, if not exit out of the function
+//     if (lastRecipe !== null) {
+//         document.getElementById("saved-food").innerHTML = lastRecipe.food;
+//         document.getElementById("saved-drink").innerHTML = lastRecipe.drink;
+//     } else {
+//         return;
+//     }
+// }
 
 // drinkBtn.addEventListener("click", function (event) {
 //     event.preventDefault();
@@ -51,16 +57,16 @@ function renderLastRecipe() {
 // });
 // foodBtn.addEventListener("click", function (event) {
 //     event.preventDefault();
-//     saveLastRecipe();
-//     renderLastRecipe();
+//     // saveLastRecipe();
+//     // renderLastRecipe();
 // });
 
-// The init() function fires when the page is loaded 
-function init() {
-    // When the init function is executed, the code inside renderLastGrade function will also execute
-    renderLastRecipe();
-}
-init();
+// // // The init() function fires when the page is loaded 
+// // function init() {
+// //     // When the init function is executed, the code inside renderLastGrade function will also execute
+// //     renderLastRecipe();
+// // }
+// // init();
 
 
 
@@ -73,175 +79,181 @@ function foodName() {
 
     fetch(foodApi)
         .then((response) => {
-            // console.log(response);
             return response.json();
         }).then((data) => {
-            // console.log(data);
-
-
-            var results = data.meals
-
-            for (var i = 0; i < results.length; i++) {
-                var foodSearchName = document.createElement('h3');
-                var foodsearchcontainer = document.createElement('ul')
-                var foodSearchInstr = document.createElement('p');
-                var foodSearchIngr = document.createElement('li');
-
-                var ingredients = [results[0].strIngredient1, results[0].strIngredient2, results[0].strIngredient3, results[0].strIngredient4, results[0].strIngredient5]
-
-                for (let i = 0; i < ingredients.length; i++) {
-
-                    if (!ingredients[i]) {
-
-                        ingredients.splice(i, 1)
-                    }
-                    foodSearchInstr.textContent = results[0].strInstructions;
-                    foodSearchName.textContent = results[0].strMeal
-                    foodSearchIngr.textContent = ingredients[i];
-
-
-                    // recContainer.appendChild(foodSearchName);
-                    // recContainer.appendChild(foodsearchcontainer);
-                    // foodsearchcontainer.appendChild(foodSearchIngr);
-                    // recContainer.appendChild(foodSearchInstr);
-                }
+            console.log(data)
+            foodResults = data.meals;
+            isDrink = false;
+            isFood = true;
+            intialFoodResult()
+       
+             })   
             }
-        })
 
-}
 
 function drinkName() {
 
     var drinkValue = document.querySelector('.drinkInput').value;
+
     var drinkApi = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinkValue}`;
 
     fetch(drinkApi)
         .then((response) => {
             return response.json();
         }).then((data) => {
-
-            var results = data.drinks
-
-            for (var i = 0; i < results.length; i++) {
-                var drinkSearchName = document.createElement('h3');
-                var drinksearchcontainer = document.createElement('ul')
-                var drinkSearchInstr = document.createElement('p');
-                var drinkSearchIngr = document.createElement('li');
-
-                var ingredients = [results[0].strIngredient1, results[0].strIngredient2, results[0].strIngredient3, results[0].strIngredient4, results[0].strIngredient5]
-
-                for (let i = 0; i < ingredients.length; i++) {
-
-                    if (!ingredients[i]) {
-
-                        ingredients.splice(i, 1)
-                    }
-                    drinkSearchInstr.textContent = results[0].strInstructions;
-                    drinkSearchName.textContent = results[0].strMeal
-                    drinkSearchIngr.textContent = ingredients[i];
-
-                    // if(!drinkValue){
-                    //   recContainer.setAttribute('style', 'display:none');
-                    // } else{
-                    // recContainer.setAttribute('style', 'display:block');
-                    // recContainer.appendChild(drinkSearchName);
-                    // recContainer.appendChild(drinksearchcontainer);
-                    // drinksearchcontainer.appendChild(drinkSearchIngr)
-                    // recContainer.appendChild(drinkSearchInstr);
-                    // }
-                }
-
-
-
-            }
-
+            console.log(data)
+        drinkResults = data.drinks;
+        isDrink = true;
+        isFood = false;
+        intialFoodResult();
         })
-}
-
-function foodReccomendationsList() {
-    fetch('https://tasty.p.rapidapi.com/recipes/list?appid=c6b1a7a0e2msh6b58658c8689f52p1ce8e9jsn43c9547d691d', {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': 'c6b1a7a0e2msh6b58658c8689f52p1ce8e9jsn43c9547d691d',
-            'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
-        }
-    }).then((response) => {
-        return response.json();
-
-    }).then((data) => {
-        console.log(data)
-        foodResults = data.results
-        console.log(data.results);
-        intialFoodResult()
-    })
-
-};
-
-function appendFoodResults(index) {
-    var results = foodResults[index]
-    var recipeName = document.createElement('h3');
-    var recipesInstr = document.createElement('div');
-
-    //  for(var i =0; i < results[i].instructions)
-
-    if (!Array.isArray(results.recipes)) {
-
-        // recipesInstr.textContent = results.instructions[0].display_text;
-
-        // what it should be 
-        // recipesInstr.innerHTML = new unordered list
-        // create new ul + append it to recipesInstr
-        // use for loop to iterate through results.instructions[i].display_text
-        // while i >  results.instructions[i].length
-        // finally append new instructions to the ul
-
-        recipeName.textContent = results.name;
-        recContainer.appendChild(recipeName);
-        recContainer.appendChild(recipesInstr);
-
-    } else {
-        // recipesInstr.textContent = results.recipes[0].instructions[0].display_text;
-
-        // what it should be 
-        // recipesInstr.innerHTML = new unordered list
-        // create new ul + append it to recipesInstr
-        // use for loop to iterate through results.recipes[0].instructions[i].display_text
-        // while i >  results.instructions[i].length
-        // finally append new instructions to the ul
-
-        recipeName.textContent = results.recipes.name;
-        recContainer.appendChild(recipeName);
-        recContainer.appendChild(recipesInstr);
     }
+
+
+
+function appendRecipeResults(index) {
+    if(isDrink) {
+        var results = drinkResults[index]
+        var drinkSearchName = document.createElement('h2');
+        var drinksearchcontainer = document.createElement('ul');
+        var drinkMeasurementContainer = document.createElement('ul');
+        var drinkSearchInstr = document.createElement('p');
+        var drinkImage = document.createElement('img');
+        var ingredientsHeader = document.createElement('h5');
+        var instructionsHeader = document.createElement('h5');
+       
+       
+
+      
+        var ingredients = [results.strIngredient1, results.strIngredient2, results.strIngredient3, results.strIngredient4, results.strIngredient5];
+        var measurements =[results.strMeasure1, results.strMeasure2, results.strMeasure3, results.strMeasure4, results.strMeasure5];
+
+        
+        recContainer.innerHTML = '';
+        drinkSearchInstr.textContent = results.strInstructions;
+        drinkSearchName.textContent = results.strDrink;
+        drinkImage.setAttribute('src', 'results.strDrinkThumb');
+        ingredientsHeader.textContent = 'Ingredients';
+        instructionsHeader.textContent = 'Insturctions';
+        
+        for (let i = 0; i < ingredients.length; i++) {
+
+            if (!ingredients[i]) {
+
+                ingredients.splice(i, 1);
+                break;
+            }
+             if(!measurements[i]){
+
+                measurements.splice(i, 1);
+                break;
+             }
+            var drinkMeasurements =document.createElement('li');
+            var drinkSearchIngr = document.createElement('li');
+            drinkSearchIngr.textContent =  measurements[i]  + '   ' + ingredients[i];
+            drinksearchcontainer.appendChild(drinkSearchIngr);
+            
+        }
+        
+        recContainer.appendChild(drinkSearchName);
+        recContainer.appendChild(drinkImage);
+        recContainer.appendChild(ingredientsHeader)
+        recContainer.appendChild(drinksearchcontainer);
+        recContainer.appendChild(instructionsHeader)
+        recContainer.appendChild(drinkSearchInstr);
+    }
+    if(isFood){
+        var resultsF = foodResults[index];
+        var foodSearchName = document.createElement('h3');
+        var foodsearchcontainer = document.createElement('ul')
+        var foodSearchInstr = document.createElement('p');   
+        var foodIngredientsHeader = document.createElement('h5');
+        var foodInstructionsHeader = document.createElement('h5');
+        var foodImage = document.createElement('img');
+
+        
+       
+        
+
+        var ingredients = [resultsF.strIngredient1, resultsF.strIngredient2, resultsF.strIngredient3, resultsF.strIngredient4, resultsF.strIngredient5]
+        var measurements =[resultsF.strMeasure1, resultsF.strMeasure2, resultsF.strMeasure3, resultsF.strMeasure4, resultsF.strMeasure5];
+
+        
+
+        recContainer.innerHTML = '';
+        foodSearchInstr.textContent = resultsF.strInstructions;
+        foodSearchName.textContent = resultsF.strMeal;
+        foodImage.setAttribute('src', 'results.strMealThumb');
+        foodIngredientsHeader.textContent = 'Ingredients';
+        foodInstructionsHeader.textContent = 'Insturctions';
+        
+
+        for (let i = 0; i < ingredients.length; i++) {
+
+            if (!ingredients[i]) {
+
+                ingredients.splice(i, 1)
+            }
+            var foodSearchIngr = document.createElement('li');
+            foodSearchIngr.textContent = measurements[i] + '   ' + ingredients[i];
+            foodsearchcontainer.appendChild(foodSearchIngr);
+            
+           
+        }
+        
+        recContainer.appendChild(foodSearchName);
+        recContainer.appendChild(foodImage);
+        recContainer.appendChild(foodIngredientsHeader);
+        recContainer.appendChild(foodsearchcontainer);
+        recContainer.appendChild(foodInstructionsHeader)
+        recContainer.appendChild(foodSearchInstr);
+    }         
 }
 
 function increaseFoodResult() {
-    foodIndex++
-    appendFoodResults(foodIndex);
+    if(isFood){
+        if(recipeIndex < foodResults.length - 1){
+            recipeIndex++
+            appendRecipeResults(recipeIndex);
 
+        }else{
+            appendRecipeResults(recipeIndex);
+        }
+     
+    }
+    if(isDrink){
+        if(recipeIndex < drinkResults.length - 1){
+            recipeIndex++
+            appendRecipeResults(recipeIndex);
+
+        }else{
+            appendRecipeResults(recipeIndex);
+        }
+     
+    }
 }
 
 function decreaseFoodResult() {
-    if (foodIndex > 0) {
-        foodIndex--
-        appendFoodResults(foodIndex);
+    if (recipeIndex > 0) {
+        recipeIndex--
+        appendRecipeResults(recipeIndex);
     } else {
-        appendFoodResults(0)
+        appendRecipeResults(0)
     }
 }
 
 function intialFoodResult() {
-    appendFoodResults(foodIndex);
+    appendRecipeResults(recipeIndex);
 }
 
-foodName();
-drinkName();
 
-// foodReccomendationsList();
-
-foodBtn.addEventListener('click', function (event) {
-    event.preventDefault();
-    foodReccomendationsList();
-});
-
+foodBtn.addEventListener('click', foodName);
 drinkBtn.addEventListener('click', drinkName);
+
+rightBtn.addEventListener('click', increaseFoodResult);
+leftBtn.addEventListener('click', decreaseFoodResult);
+
+ 
+  
+
+  
