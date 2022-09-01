@@ -132,7 +132,9 @@ function appendRecipeResults(index) {
         recContainer.innerHTML = '';
         drinkSearchInstr.textContent = results.strInstructions;
         drinkSearchName.textContent = results.strDrink;
-        drinkImage.setAttribute('src', 'results.strDrinkThumb');
+        drinkImage.setAttribute('src', results.strDrinkThumb);
+        drinkImage.setAttribute('style', 'height:150px; width:150px');
+       
         ingredientsHeader.textContent = 'Ingredients';
         instructionsHeader.textContent = 'Insturctions';
         
@@ -183,7 +185,9 @@ function appendRecipeResults(index) {
         recContainer.innerHTML = '';
         foodSearchInstr.textContent = resultsF.strInstructions;
         foodSearchName.textContent = resultsF.strMeal;
-        foodImage.setAttribute('src', 'results.strMealThumb');
+        foodImage.setAttribute('src', resultsF.strMealThumb);
+        foodImage.setAttribute('style', 'height:150px; width:150px');
+        
         foodIngredientsHeader.textContent = 'Ingredients';
         foodInstructionsHeader.textContent = 'Insturctions';
         
