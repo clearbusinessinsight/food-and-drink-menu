@@ -25,7 +25,7 @@ body {
 
 .card {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     width: 500px;
     height: 700px;
@@ -33,6 +33,8 @@ body {
     transform-style: preserve-3d;
     transform: translate(-50%, -50%) perspective(2000px);
     transition: 1s;
+    overflow: scroll;
+    
 }
 
 .card:hover {
@@ -104,10 +106,13 @@ body {
 
 
 .search-box {
+
+    display: flex;
+    flex-direction: row;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 80%; 
+    transform: translate(-50%, -50%); 
     height: 40px;
 }
 
@@ -115,4 +120,21 @@ body {
     background-color: #6C4A4A;
     border-radius: 10px;
 
+
 }
+
+#forward-arrow:hover{
+    font-size: large;
+    color: aqua;
+}
+
+#back-arrow:hover{
+    font-size: large;
+    color: aqua;
+}
+
+.foodBtn{
+    margin-right: 5px;
+}
+
+
