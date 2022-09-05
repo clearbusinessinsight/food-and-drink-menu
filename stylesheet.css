@@ -14,6 +14,7 @@ body {
     height: 80px;
 }
 
+/* You should include some back ups for font-family incase the browser can't load the first one */
 .navbar a {
     font-family: Aboreto;
     font-size: 45px;
@@ -98,7 +99,7 @@ body {
 }
 
 
-
+/* You should include some back ups for font-family incase the browser can't load the first one */
 #menu {
     font-family: Satisfy;
     color: #CA955C;

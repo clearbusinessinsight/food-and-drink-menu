@@ -27,7 +27,7 @@ var leftBtn = document.getElementById('back-arrow');
 
 
 
-
+// You should really delete any commented out code before the final submission
 // function saveLastRecipe() {
 //     // Save related form data as an object
 //     var userRecipe = {
@@ -77,6 +77,7 @@ function foodName() {
     var foodValue = document.querySelector('.foodInput').value;
     var foodApi = `https://www.themealdb.com/api/json/v1/1/search.php?s=${foodValue}`;
 
+    // The ending brackets for this should line up, it will make your code look a lot more clean
     fetch(foodApi)
         .then((response) => {
             return response.json();
@@ -101,7 +102,9 @@ function drinkName() {
         .then((response) => {
             return response.json();
         }).then((data) => {
+            // remove debugging console.logs before final submission, also the rest of the code in this function should be tabbed over to look cleaner
             console.log(data)
+        // Did you use the wrong varaiable here? VSCode thinks you mean drinkResult, which i agree with. You did not define a drinkResults variable up top
         drinkResults = data.drinks;
         isDrink = true;
         isFood = false;
@@ -113,16 +116,18 @@ function drinkName() {
 
 function appendRecipeResults(index) {
     if(isDrink) {
+        // Did you use the wrong varaiable here? VSCode thinks you mean drinkResult, which i agree with. You did not define a drinkResults variable up top
         var results = drinkResults[index]
         var drinkSearchName = document.createElement('h2');
         var drinksearchcontainer = document.createElement('ul');
+        // this var is not used, delete it
         var drinkMeasurementContainer = document.createElement('ul');
         var drinkSearchInstr = document.createElement('p');
         var drinkImage = document.createElement('img');
         var ingredientsHeader = document.createElement('h5');
         var instructionsHeader = document.createElement('h5');
        
-       
+       // Remove too much empty space like this
 
       
         var ingredients = [results.strIngredient1, results.strIngredient2, results.strIngredient3, results.strIngredient4, results.strIngredient5];
@@ -150,6 +155,7 @@ function appendRecipeResults(index) {
                 measurements.splice(i, 1);
                 break;
              }
+            // this var is not used, delete it
             var drinkMeasurements =document.createElement('li');
             var drinkSearchIngr = document.createElement('li');
             drinkSearchIngr.textContent =  measurements[i]  + '   ' + ingredients[i];
@@ -165,6 +171,7 @@ function appendRecipeResults(index) {
         recContainer.appendChild(drinkSearchInstr);
     }
     if(isFood){
+        // This potentially gievs no results. I was able to get some errors in your console due to this. Need a null ( empty value ) checker
         var resultsF = foodResults[index];
         var foodSearchName = document.createElement('h3');
         var foodsearchcontainer = document.createElement('ul')
@@ -174,7 +181,7 @@ function appendRecipeResults(index) {
         var foodImage = document.createElement('img');
 
         
-       
+       // Remove too much empty space like this
         
 
         var ingredients = [resultsF.strIngredient1, resultsF.strIngredient2, resultsF.strIngredient3, resultsF.strIngredient4, resultsF.strIngredient5]
@@ -226,6 +233,7 @@ function increaseFoodResult() {
      
     }
     if(isDrink){
+        // Did you use the wrong varaiable here? VSCode thinks you mean drinkResult, which i agree with. You did not define a drinkResults variable up top
         if(recipeIndex < drinkResults.length - 1){
             recipeIndex++
             appendRecipeResults(recipeIndex);
